@@ -1,13 +1,18 @@
 import jwt from 'jsonwebtoken';
 
-export default function verifyJWT(request, response) {
-  const token = request.headers['x-access-token'];
-  if (!token) return response.status(401).json({ auth: false, message: 'No token provided.' });
+export default function verifyJWT(request) {
+  const authorization = 'authorization';
+  const token = request.headers[authorization];
 
-  jwt.verify(token, process.env.SECRET, function (err, decoded) {
-    if (err) return response.status(500).json({ auth: false, message: 'Failed to authenticate token.' });
+  if (!token) return false;
 
-    request.userId = decoded.id;
+  try {
+    const decoded = jwt.verify(token, process.env.SECRET);
+
+    if (!decoded) return false;
+
     return true;
-  });
+  } catch (e) {
+    return false;
+  }
 }
