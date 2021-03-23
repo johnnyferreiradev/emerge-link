@@ -1,35 +1,63 @@
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 import connectToDatabase from './connect';
 
 export default async (request, response) => {
   const { method } = request;
 
-  const db = await connectToDatabase(process.env.MONGODB_URI);
+  try {
+    const db = await connectToDatabase(process.env.MONGODB_URI);
 
-  switch (method) {
-    case 'GET': {
-      const { email, password } = request.body;
+    switch (method) {
+      case 'GET': {
+        const { email, password } = request.body;
 
-      const user = db.emergelink.find({ email, password });
+        const collection = db.collection('user');
 
-      if (user) {
-        const { id } = user;
-        const token = jwt.sign({ id }, process.env.SECRET, {
-          expiresIn: 300,
-        });
+        const user = await collection.findOne({ email });
 
-        return response.status(200).json({ user, token });
+        if (user) {
+          const match = await bcrypt.compare(password, user.password);
+
+          if (match) {
+            const { _id, name, subscribedAt } = user;
+            const token = jwt.sign({ _id }, process.env.SECRET, {
+              expiresIn: '30d',
+            });
+
+            response.status(200).json({
+              user: {
+                id: _id,
+                name,
+                email,
+                subscribedAt,
+              },
+              token,
+            });
+          } else {
+            response.status(400).json({
+              code: 'password',
+              message: 'Senha incorreta',
+            });
+          }
+        } else {
+          response.status(400).json({
+            code: 'email',
+            message: 'Email incorreto',
+          });
+        }
+
+        break;
       }
-
-      response.status(400).json({ message: 'Login inválido!' });
-      break;
+      default: {
+        response.status(405).end(`Method ${method} Not Allowed`);
+      }
     }
-    default: {
-      response.setHeader('Allow', ['GET']);
-      response.status(405).end(`Method ${method} Not Allowed`);
-    }
+  } catch (e) {
+    return response.status(400).json({
+      code: 'login',
+      message: 'Erro ao fazer login',
+    });
   }
-
-  return null;
 };
