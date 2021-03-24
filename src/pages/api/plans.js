@@ -50,27 +50,39 @@ export default async (request, response) => {
 
     case 'GET': {
       try {
-        await db.collection(collectionName).find().toArray((err, result) => {
-          if (err) {
-            return response.status(500).json({
-              error: {
-                code: 'plansList',
-                message: err,
-              },
-            });
-          }
-
-          response.status(200).json({ plans: result });
-        });
-      } catch {
-        response.status(500).json({
-          error: {
-            code: 'plansList',
-            message: 'Erro ao listar planos',
-          },
-        });
+        db.collection(collectionName).find()
+          .toArray()
+          .then((items) => response.status(200).json({ plans: items }))
+          .catch(() => response.status(200).json({ plans: [] }));
+      } catch (e) {
+        return response
+          .status(404)
+          .json({ code: 'findPlanError', message: 'Plano não encontrado' });
       }
       break;
+
+      // try {
+      //   await db.collection(collectionName).find().toArray((err, result) => {
+      //     if (err) {
+      //       return response.status(500).json({
+      //         error: {
+      //           code: 'plansList',
+      //           message: err,
+      //         },
+      //       });
+      //     }
+
+      //     response.status(200).json({ plans: result });
+      //   });
+      // } catch {
+      //   response.status(500).json({
+      //     error: {
+      //       code: 'plansList',
+      //       message: 'Erro ao listar planos',
+      //     },
+      //   });
+      // }
+      // break;
     }
 
     default: {

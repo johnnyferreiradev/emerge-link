@@ -1,19 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
 
 import hideGlobalModal from 'store/actions/modal/hideGlobalModal';
-
-import { getToken } from 'services/auth';
 
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import Snackbar from 'components/Snackbar';
 import Modal from 'components/Modal';
 
-function MainLayout({ children, isPrivate }) {
+function MainLayout({ children }) {
   const dispatch = useDispatch();
-  const router = useRouter();
 
   const snackbar = useSelector((state) => state.snackbar);
   const modal = useSelector((state) => state.modal);
@@ -22,15 +18,9 @@ function MainLayout({ children, isPrivate }) {
     dispatch(hideGlobalModal());
   };
 
-  useEffect(() => {
-    if (!getToken()) {
-      router.push('/login');
-    }
-  }, []);
-
   return (
     <div className="main-layout">
-      <Header isPrivate={isPrivate} />
+      <Header />
       {children}
       <Footer />
 

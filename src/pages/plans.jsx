@@ -1,34 +1,82 @@
-import React from 'react';
-import Head from 'next/head';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { Button } from 'components/Buttons';
+import { getPlans } from 'api/plans';
 
-import { logoff } from 'services/auth';
+import { getToken } from 'services/auth';
 
-import profileImage from '../assets/images/default-profile.png';
-import Container from '../styles/pages/Home';
+import MainLayout from 'layouts/MainLayout';
 
-function Home() {
+import PlanRow from 'components/PlanRow';
+import { Row, Column } from 'components/Grid';
+import Loading from 'components/Loading';
+
+import StyledPlans from 'styles/pages/Plans';
+
+function Plans() {
   const router = useRouter();
 
-  const handleLogout = () => {
-    logoff();
-    router.push('/login');
-  };
+  const [plans, setPlans] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+
+    if (!getToken()) {
+      router.push('/login');
+      return;
+    }
+
+    getPlans()
+      .then((response) => {
+        setPlans(() => response.data.plans);
+      }).finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   return (
-    <Container>
-      <Head>
-        <title>Emerge Link</title>
-      </Head>
+    <MainLayout isPrivate>
+      <StyledPlans>
+        <h1>Planos</h1>
 
-      <img src={profileImage} alt="Profile" />
-      <h1>Plans</h1>
+        {loading && (
+          <Loading type="bubbles" height={96} width={96} fluid color="#229DE8" />
+        )}
 
-      <Button onClick={() => handleLogout()}>Sair</Button>
-    </Container>
+        {!loading && plans.length !== 0 && (
+          <>
+            <Row>
+              <Column desktop="3" tablet="3" mobile="3">
+                <p>Nome</p>
+              </Column>
+              <Column desktop="3" tablet="3" mobile="3">
+                <p>Tamanho</p>
+              </Column>
+              <Column desktop="3" tablet="3" mobile="3">
+                <p>Preço</p>
+              </Column>
+
+              <Column desktop="3" tablet="3" mobile="3">
+                <p>Ações</p>
+              </Column>
+            </Row>
+
+            <div className="content">
+              {plans.map((plan) => (
+                <PlanRow key={plan._id} plan={plan} />
+              ))}
+            </div>
+          </>
+        )}
+
+        {!loading && plans.length === 0 && (
+          <h3 className="txt-primary mt-3">Não há planos</h3>
+        )}
+
+      </StyledPlans>
+    </MainLayout>
   );
 }
 
-export default Home;
+export default Plans;

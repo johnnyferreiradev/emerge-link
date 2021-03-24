@@ -19,8 +19,12 @@ function Header({ isPrivate }) {
     router.push('/login');
   };
 
-  const goToHome = () => {
-    router.push('/');
+  const goToPlans = () => {
+    router.push('/plans');
+  };
+
+  const goToNewPlan = () => {
+    router.push('/plan-form');
   };
 
   return (
@@ -28,7 +32,7 @@ function Header({ isPrivate }) {
       <Container className="main-content">
         <Row alignItems="center">
           <Column desktop="3" tablet="3" mobile="6" className="logo-column">
-            <Button buttonTheme="link" onClick={() => goToHome()}>
+            <Button buttonTheme="link" onClick={() => goToPlans()}>
               <h2 className="app-name txt-dark">Emerge Link</h2>
             </Button>
           </Column>
@@ -36,9 +40,15 @@ function Header({ isPrivate }) {
             <Row alignItems="center" justifyContent="flex-end">
               <Column desktop="2" tablet="2" mobile="12" className="flex j-c-end">
                 {isPrivate && (
-                  <Button buttonTheme="link" onClick={() => logout()}>
-                    <p className="txt-secondary">Sair</p>
-                  </Button>
+                  <>
+                    <Button buttonTheme="link" onClick={() => logout()}>
+                      <p className="txt-primary">Sair</p>
+                    </Button>
+
+                    <Button buttonTheme="primary" onClick={() => goToNewPlan()}>
+                      <p className="txt-white p-1">Novo</p>
+                    </Button>
+                  </>
                 )}
 
                 {/* <Button buttonTheme="link" onClick={() => {}}>

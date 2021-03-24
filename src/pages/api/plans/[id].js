@@ -18,6 +18,29 @@ export default async (request, response) => {
   const db = await connectToDatabase(process.env.MONGODB_URI);
 
   switch (method) {
+    case 'GET': {
+      const { id } = request.query;
+
+      try {
+        const plan = await db.collection(collectionName).findOne({ _id: ObjectId(id) });
+
+        if (!plan) {
+          return response
+            .status(404)
+            .json({ code: 'removeError', message: 'Plano não encontrado' });
+        }
+
+        return response
+          .status(200)
+          .json({ plan });
+      } catch (e) {
+        return response
+          .status(404)
+          .json({ code: 'findPlanError', message: 'Plano não encontrado' });
+      }
+      break;
+    }
+
     case 'DELETE': {
       const { id } = request.query;
 
