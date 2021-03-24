@@ -2,12 +2,11 @@ import api from './api';
 
 export const getPlans = () => api.get('/plans');
 
-// export const register = (name, email, password) => api.post('/user', {
-//   name,
-//   email,
-//   password,
-//   password_confirmation: password,
-// });
+export const registerPlan = (name, size, price) => api.post('/plans', {
+  name,
+  size,
+  price,
+});
 
 // export const recoveryPassword = (email) => api.post('/forgotPassword', {
 //   email,

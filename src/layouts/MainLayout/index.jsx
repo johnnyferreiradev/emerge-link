@@ -8,7 +8,7 @@ import Footer from 'components/Footer';
 import Snackbar from 'components/Snackbar';
 import Modal from 'components/Modal';
 
-function MainLayout({ children }) {
+function MainLayout({ children, isPrivate }) {
   const dispatch = useDispatch();
 
   const snackbar = useSelector((state) => state.snackbar);
@@ -20,7 +20,7 @@ function MainLayout({ children }) {
 
   return (
     <div className="main-layout">
-      <Header />
+      <Header isPrivate={isPrivate} />
       {children}
       <Footer />
 

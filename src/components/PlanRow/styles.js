@@ -9,7 +9,7 @@ const Container = styled.div`
     justify-content: flex-start;
     align-items: center;
 
-    .actions {
+    .plan-row-actions {
       display: flex;
       justify-content: center;
       align-items: center;

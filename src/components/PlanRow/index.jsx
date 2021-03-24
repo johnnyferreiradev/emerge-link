@@ -48,7 +48,7 @@ function PlanRow({ plan }) {
           <p>{plan.price}</p>
         </Column>
 
-        <Column desktop="3" tablet="3" mobile="3" className="actions">
+        <Column desktop="3" tablet="3" mobile="3" className="plan-row-actions">
           <Button buttonTheme="secondary">Editar</Button>
           <Button buttonTheme="danger" onClick={() => handleRemove(plan._id)}>Excluir</Button>
         </Column>

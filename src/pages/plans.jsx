@@ -98,7 +98,7 @@ function Plans() {
   }, []);
 
   return (
-    <MainLayout>
+    <MainLayout isPrivate>
       <StyledPlans>
         <h1>Planos</h1>
 

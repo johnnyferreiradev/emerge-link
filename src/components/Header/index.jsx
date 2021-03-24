@@ -23,6 +23,10 @@ function Header({ isPrivate }) {
     router.push('/');
   };
 
+  const goToNewPlan = () => {
+    router.push('/plan-form');
+  };
+
   return (
     <StyledHeader className="header">
       <Container className="main-content">
@@ -36,9 +40,15 @@ function Header({ isPrivate }) {
             <Row alignItems="center" justifyContent="flex-end">
               <Column desktop="2" tablet="2" mobile="12" className="flex j-c-end">
                 {isPrivate && (
-                  <Button buttonTheme="link" onClick={() => logout()}>
-                    <p className="txt-secondary">Sair</p>
-                  </Button>
+                  <>
+                    <Button buttonTheme="link" onClick={() => logout()}>
+                      <p className="txt-primary">Sair</p>
+                    </Button>
+
+                    <Button buttonTheme="primary" onClick={() => goToNewPlan()}>
+                      <p className="txt-white p-1">Novo</p>
+                    </Button>
+                  </>
                 )}
 
                 {/* <Button buttonTheme="link" onClick={() => {}}>
