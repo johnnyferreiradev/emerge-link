@@ -5,6 +5,7 @@ import connectToDatabase from './connect';
 export default async (request, response) => {
   const { method } = request;
   const auth = verifyJWT(request);
+  const collectionName = 'plans';
 
   console.log('Auth value = ', auth);
 
@@ -19,33 +20,58 @@ export default async (request, response) => {
 
   switch (method) {
     case 'POST': {
-      response.status(200).json({ ok: true });
-      // if (auth === true) {
-      //   const { name = '', price, size } = request.body;
-      //   const db = await connectToDatabase(process.env.MONGODB_URI);
-      //   const collection = db.collection('');
-      //   await collection.insertOne({
-      //     name,
-      //     price,
-      //     size,
-      //     subscribedAt: new Date(),
-      //   });
-      //   response.status(200).json({ ok: true });
-      // } else {
-      //   response = auth;
-      // }
+      try {
+        const { name, price, size } = request.body;
+
+        const result = await db.collection(collectionName).insertOne({
+          name,
+          price,
+          size,
+          subscribedAt: new Date(),
+        });
+
+        const { _id, subscribedAt } = result;
+
+        response.status(200).json({
+          id: _id,
+          name,
+          price,
+          size,
+          subscribedAt,
+        });
+      } catch (e) {
+        response.status(400).json({
+          error: {
+            code: 'plansStore',
+            message: 'Erro ao cadastrar um planos',
+          },
+        });
+      }
       break;
     }
 
     case 'GET': {
-      response.status(200).json({ ok: true });
-      // try {
-      //   const plans = db.plans.find({});
-      //   response.status(200).json(plans);
+      try {
+        await db.collection(collectionName).find().toArray((err, result) => {
+          if (err) {
+            return response.status(500).json({
+              error: {
+                code: 'plansList',
+                message: 'Erro ao listar planos',
+              },
+            });
+          }
 
-      // } catch {
-      //   response.status(400).json({ ok: false });
-      // }
+          response.status(200).json({ plans: result });
+        });
+      } catch {
+        response.status(400).json({
+          error: {
+            code: 'plansList',
+            message: 'Erro ao listar planos',
+          },
+        });
+      }
       break;
     }
 
