@@ -10,6 +10,10 @@ const Header = styled.header`
   color: ${({ theme }) => theme.colors.primary};
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
 
+  h2 {
+    width: 100%;
+  }
+
   .main-content {
     padding: 16px;
     display: flex;
@@ -28,7 +32,7 @@ const Header = styled.header`
     button {
       padding: 0px;
       font-size: 20px;
-      width: 42px;
+      width: 100%;
       margin: 0px 8px;
     }
   }

@@ -8,7 +8,9 @@
     "start": "next start"
   },
   "dependencies": {
+    "@material/react-snackbar": "^0.15.0",
     "@vercel/node": "^1.9.1",
+    "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
     "eslint-plugin-flowtype": "^5.4.0",
     "jsonwebtoken": "^8.5.1",
@@ -18,7 +20,10 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-icons": "^4.2.0",
+    "react-loading": "^2.0.3",
+    "react-redux": "^7.2.3",
     "react-scripts": "^4.0.3",
+    "redux": "^4.0.5",
     "styled-components": "^5.2.1"
   },
   "devDependencies": {
