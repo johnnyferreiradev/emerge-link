@@ -1,38 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 
 import { deletePlan } from 'api/plans';
 
 import showGlobalModal from 'store/actions/modal/showGlobalModal';
 import hideGlobalModal from 'store/actions/modal/hideGlobalModal';
+import showSnackbar from 'store/actions/snackbar/showSnackbar';
 
 import Card from 'components/Card';
 import { Button } from 'components/Buttons';
 import { Column } from 'components/Grid';
+import Loading from 'components/Loading';
+import DeletePlanModal from 'components/DeletePlanModal';
 
 import StyledPlanRow from './styles';
 
 function PlanRow({ plan }) {
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  const [loading, setLoading] = useState(false);
 
   const removePlan = (planId) => {
+    setLoading(true);
+
     deletePlan(planId)
       .then(() => {
         window.location.reload();
       })
       .catch(() => {
-        alert('Erro ao remover plano');
+        dispatch(showSnackbar('Ocorreu um erro ao deletar o plano. Tente novamente', 'danger'));
+      }).finally(() => {
+        setLoading(false);
       });
   };
 
   const handleRemove = (id) => {
     dispatch(showGlobalModal((
-      <div className="remove-plan-modal">
-        <h1 className="mb-3">Tem certeza que deseja excluir este plano?</h1>
-        <Button buttonTheme="danger" className="mr-2" onClick={() => removePlan(id)}>Excluir</Button>
-        <Button buttonTheme="secondary" onClick={() => dispatch(hideGlobalModal())}>Cancelar</Button>
-      </div>
+      <DeletePlanModal id={id} />
     )));
+  };
+
+  const handleEdit = (id) => {
+    router.push(`/plan-form/${id}`);
   };
 
   return (
@@ -49,7 +60,7 @@ function PlanRow({ plan }) {
         </Column>
 
         <Column desktop="3" tablet="3" mobile="3" className="plan-row-actions">
-          <Button buttonTheme="secondary">Editar</Button>
+          <Button buttonTheme="secondary" onClick={() => handleEdit(plan._id)}>Editar</Button>
           <Button buttonTheme="danger" onClick={() => handleRemove(plan._id)}>Excluir</Button>
         </Column>
       </Card>

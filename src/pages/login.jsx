@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 
-import { getToken, authenticate } from 'services/auth';
+import { authenticate } from 'services/auth';
 
 import { login } from 'api/auth';
 
@@ -10,13 +10,11 @@ import showSnackbar from 'store/actions/snackbar/showSnackbar';
 
 import { validadeEmail } from 'utils/validate';
 
-import MainLayout from 'layouts/MainLayout';
+import PublicLayout from 'layouts/PublicLayout';
 
 import Card from 'components/Card';
 import { Button } from 'components/Buttons';
 import Loading from 'components/Loading';
-
-import profileImage from 'assets/images/default-profile.png';
 
 import StyledLogin from 'styles/pages/Login';
 
@@ -78,7 +76,7 @@ function Login() {
   };
 
   return (
-    <MainLayout>
+    <PublicLayout>
       <StyledLogin>
         <h1>Login</h1>
         <p>Faça login para gerenciar a plataforma</p>
@@ -122,7 +120,7 @@ function Login() {
           </div>
         </Card>
       </StyledLogin>
-    </MainLayout>
+    </PublicLayout>
   );
 }
 

@@ -19,8 +19,8 @@ function Header({ isPrivate }) {
     router.push('/login');
   };
 
-  const goToHome = () => {
-    router.push('/');
+  const goToPlans = () => {
+    router.push('/plans');
   };
 
   const goToNewPlan = () => {
@@ -32,7 +32,7 @@ function Header({ isPrivate }) {
       <Container className="main-content">
         <Row alignItems="center">
           <Column desktop="3" tablet="3" mobile="6" className="logo-column">
-            <Button buttonTheme="link" onClick={() => goToHome()}>
+            <Button buttonTheme="link" onClick={() => goToPlans()}>
               <h2 className="app-name txt-dark">Emerge Link</h2>
             </Button>
           </Column>

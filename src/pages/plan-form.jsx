@@ -1,32 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-
-import { getToken, authenticate } from 'services/auth';
 
 import { registerPlan } from 'api/plans';
 
 import showSnackbar from 'store/actions/snackbar/showSnackbar';
-
-import { validadeEmail } from 'utils/validate';
 
 import MainLayout from 'layouts/MainLayout';
 
 import Card from 'components/Card';
 import { Button } from 'components/Buttons';
 import Loading from 'components/Loading';
-import PlanRow from 'components/PlanRow';
-import { Row, Column } from 'components/Grid';
-
-import profileImage from 'assets/images/default-profile.png';
 
 import StyledPlans from 'styles/pages/Plans';
 
 function Plans() {
   const dispatch = useDispatch();
   const router = useRouter();
-
-  const [plans, setPlans] = useState([]);
 
   const [planState, setPlanState] = useState({
     name: '',
@@ -70,7 +60,7 @@ function Plans() {
       .then(() => {
         router.push('/plans');
       }).catch(() => {
-        alert('Erro ao cadastrar um plano');
+        dispatch(showSnackbar('Ocorreu um erro ao cadastrar o plano. Tente novamente', 'danger'));
       }).finally(() => {
         setLoading(false);
       });
