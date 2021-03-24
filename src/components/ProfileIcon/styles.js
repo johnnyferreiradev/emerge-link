@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 
-import { primaryColor } from 'variables';
-
 const StyledProfileIcon = styled.div.attrs(() => ({
   className: 'profile-icon',
 }))`
   width: 42px;
   height: 42px;
-  background: ${primaryColor};
+  background: ${({ theme }) => theme.colors.primary};
   color: #ffffff;
   border-radius: 50%;
   font-size: 20px;

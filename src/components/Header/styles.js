@@ -1,19 +1,18 @@
 import styled from 'styled-components';
 
-import {
-  baseColor,
-  primaryColor,
-} from 'variables';
-
 const Header = styled.header`
   position: relative;
   box-sizing: border-box;
   width: 100%;
   display: flex;
   justify-content: center;
-  background-color: ${baseColor};
-  color: ${primaryColor};
+  background-color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.primary};
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+
+  h2 {
+    width: 100%;
+  }
 
   .main-content {
     padding: 16px;
@@ -26,14 +25,14 @@ const Header = styled.header`
     }
 
     a {
-      color: ${primaryColor};
+      color: ${({ theme }) => theme.colors.primary};
       text-decoration: none;
     }
 
     button {
       padding: 0px;
       font-size: 20px;
-      width: 42px;
+      width: 100%;
       margin: 0px 8px;
     }
   }

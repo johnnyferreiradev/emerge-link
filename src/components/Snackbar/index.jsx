@@ -7,7 +7,7 @@ import hideSnackbar from 'store/actions/snackbar/hideSnackbar';
 
 import StyledSnackbar from './styles';
 
-function CustomSnackbar({ message, timeout, theme = 'primary' }) {
+function CustomSnackbar({ message, timeout, snackbarTheme = 'primary' }) {
   const dispatch = useDispatch();
 
   const handleOnClose = () => {
@@ -15,7 +15,7 @@ function CustomSnackbar({ message, timeout, theme = 'primary' }) {
   };
 
   return (
-    <StyledSnackbar theme={theme}>
+    <StyledSnackbar snackbarTheme={snackbarTheme}>
       <Snackbar
         message={message}
         actionText={(<FaTimes />)}

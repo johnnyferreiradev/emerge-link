@@ -10,7 +10,7 @@ export default async (request, response) => {
     const db = await connectToDatabase(process.env.MONGODB_URI);
 
     switch (method) {
-      case 'GET': {
+      case 'POST': {
         const { email, password } = request.body;
 
         const collection = db.collection('user');
@@ -27,12 +27,10 @@ export default async (request, response) => {
             });
 
             response.status(200).json({
-              user: {
-                id: _id,
-                name,
-                email,
-                subscribedAt,
-              },
+              id: _id,
+              name,
+              email,
+              subscribedAt,
               token,
             });
           } else {

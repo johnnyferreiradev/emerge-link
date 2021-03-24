@@ -14,7 +14,7 @@ function Footer() {
             <Row>
               <Column desktop="12" tablet="12" mobile="12" className="flex j-c-between a-i-center">
                 <AnchorButton theme="inverseLink">Ajuda</AnchorButton>
-                <p className="txt-white">
+                <p className="txt-primary">
                   {new Date().getFullYear()}
                   - Todos os direitos reservados
                 </p>

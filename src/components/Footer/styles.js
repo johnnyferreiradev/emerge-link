@@ -1,10 +1,5 @@
 import styled from 'styled-components';
 
-import {
-  tertiaryColor,
-  primaryColor,
-} from 'variables';
-
 const styledFooter = styled.footer.attrs(() => ({
   className: 'footer',
 }))`
@@ -12,11 +7,11 @@ const styledFooter = styled.footer.attrs(() => ({
   bottom: 0px;
   width: 100%;
   padding: 16px;
-  background: ${primaryColor};
+  background: ${({ theme }) => theme.colors.white};
   display: flex;
   justify-content: center;
-  border-top: 2px solid ${tertiaryColor};
-  color: ${primaryColor};
+  border-top: 2px solid ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.primary};
 
   .left-side > * {
     margin-bottom: 16px;
@@ -98,7 +93,7 @@ const styledFooter = styled.footer.attrs(() => ({
     }
   }
 
-  @media (max-width: 768px) {
+  /* @media (max-width: 768px) {
     position: relative;
     padding: 32px;
     margin-top: 64px;
@@ -110,7 +105,7 @@ const styledFooter = styled.footer.attrs(() => ({
     p {
       text-align: end;
     }
-  }
+  } */
 
   @media (max-height: 784px) {
     position: relative;
