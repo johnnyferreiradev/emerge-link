@@ -8,7 +8,7 @@ const Button = ({
   className,
   fluid,
   disabled,
-  theme = 'primary',
+  buttonTheme = 'primary',
   style,
   onClick,
 }) => (
@@ -17,7 +17,7 @@ const Button = ({
     className={className}
     fluid={fluid}
     disabled={disabled}
-    theme={theme}
+    buttonTheme={buttonTheme}
     style={style}
     onClick={onClick}
   >
@@ -30,7 +30,7 @@ const LinkButton = ({
   className,
   fluid,
   disabled,
-  theme = 'link',
+  buttonTheme = 'link',
   style,
   to,
   underline,
@@ -40,7 +40,7 @@ const LinkButton = ({
     className={className}
     fluid={fluid}
     disabled={disabled}
-    theme={theme}
+    buttonTheme={buttonTheme}
     style={style}
     underline={underline}
   >
@@ -53,7 +53,7 @@ const AnchorButton = ({
   className,
   fluid,
   disabled,
-  theme = 'link',
+  buttonTheme = 'link',
   style,
   href,
   underline = true,
@@ -63,7 +63,7 @@ const AnchorButton = ({
     className={className}
     fluid={fluid}
     disabled={disabled}
-    theme={theme}
+    buttonTheme={buttonTheme}
     style={style}
     underline={underline}
   >
