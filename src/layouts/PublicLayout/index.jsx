@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Head from 'next/head';
 
 import hideGlobalModal from 'store/actions/modal/hideGlobalModal';
 
@@ -20,6 +21,10 @@ function MainLayout({ children }) {
 
   return (
     <div className="main-layout">
+      <Head>
+        <title>Emerge Link</title>
+      </Head>
+
       <Header />
       {children}
       <Footer />
