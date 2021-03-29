@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Head from 'next/head';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 
@@ -30,6 +31,10 @@ function MainLayout({ children, isPrivate }) {
 
   return (
     <div className="main-layout">
+      <Head>
+        <title>Emerge Link</title>
+      </Head>
+
       <Header isPrivate={isPrivate} />
       {children}
       <Footer />
