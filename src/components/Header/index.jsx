@@ -38,7 +38,7 @@ function Header({ isPrivate }) {
           </Column>
           <Column desktop="9" tablet="9" mobile="6">
             <Row alignItems="center" justifyContent="flex-end">
-              <Column desktop="2" tablet="2" mobile="12" className="flex j-c-end">
+              <Column desktop="12" tablet="12" mobile="12" className="flex j-c-end">
                 {isPrivate && (
                   <>
                     <Button buttonTheme="link" onClick={() => logout()}>
@@ -51,13 +51,13 @@ function Header({ isPrivate }) {
                   </>
                 )}
 
-                {/* <Button buttonTheme="link" onClick={() => {}}>
-                  <FaPlus />
+                <Button buttonTheme="link" className="home-button" onClick={() => {}}>
+                  Contato
                 </Button>
 
-                <Button buttonTheme="link" onClick={() => {}}>
-                  <ProfileIcon />
-                </Button> */}
+                <Button buttonTheme="primary" className="home-button" onClick={() => {}}>
+                  Gerar fatura
+                </Button>
               </Column>
             </Row>
           </Column>

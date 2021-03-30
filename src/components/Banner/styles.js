@@ -1,17 +1,15 @@
 import styled from 'styled-components';
 
-import { primaryColor, maxScreenWidth } from 'variables';
-
 const styledBanner = styled.div.attrs(() => ({
   className: 'banner',
 }))`
   box-sizing: border-box;
   width: 100%;
-  max-width: ${maxScreenWidth} !important;
-  height: 400px;
+  height: 600px;
   background-image: url(${({ backgroundImage }) => backgroundImage});
   background-size: cover;
-  color: ${primaryColor};
+  background-position: center center;
+  color: #fff;
 
   display: flex;
   flex-direction: column;

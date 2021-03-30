@@ -8,8 +8,8 @@ const StyledButton = styled.button`
   cursor: pointer;
   outline: none;
   box-shadow: ${({ buttonTheme, theme }) => theme.buttons[buttonTheme].boxShadow};
-  padding: 14px 48px;
-  border-radius: 4px;
+  padding: 14px 24px;
+  border-radius: 36px;
   font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
