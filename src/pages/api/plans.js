@@ -21,6 +21,14 @@ export default async (request, response) => {
       try {
         const { name, price, size } = request.body;
 
+        if(isNaN(price)){
+          throw 'O preço do produto precisa ser um número.';
+        }
+
+        if(isNaN(size)){
+          throw 'A largura de banda do produto precisa ser um número.';
+        }
+
         const result = await db.collection(collectionName).insertOne({
           name,
           price,
@@ -37,11 +45,11 @@ export default async (request, response) => {
           size,
           createdAt,
         });
-      } catch (e) {
+      } catch (err) {
         response.status(500).json({
           error: {
             code: 'plansStore',
-            message: 'Erro ao cadastrar um planos',
+            message: err,
           },
         });
       }
