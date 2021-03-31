@@ -11,7 +11,7 @@ import { Button } from '../Buttons';
 
 import StyledHeader from './styles';
 
-function Header({ isPrivate }) {
+function Header({ isPrivate, hideLinks }) {
   const router = useRouter();
   const refs = useContext(RefsContext);
 
@@ -47,7 +47,7 @@ function Header({ isPrivate }) {
           <Column desktop="9" tablet="9" mobile="6">
             <Row alignItems="center" justifyContent="flex-end">
               <Column desktop="12" tablet="12" mobile="12" className="flex j-c-end">
-                {isPrivate && (
+                {isPrivate && !hideLinks && (
                   <>
                     <Button buttonTheme="link" onClick={() => logout()}>
                       Sair
@@ -59,7 +59,7 @@ function Header({ isPrivate }) {
                   </>
                 )}
 
-                {!isPrivate && (
+                {!isPrivate && !hideLinks && (
                   <>
                     <Button buttonTheme="link" className="home-button" onClick={() => scrollToRef(refs.contact)}>
                       Contato

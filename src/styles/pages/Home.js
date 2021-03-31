@@ -48,7 +48,7 @@ const Container = styled.div`
     width: 280px;
     padding: 16px;
     text-align: center;
-    margin: 32px 0px;
+    margin: 0px;
 
     .grid-column {
       padding: 0px;

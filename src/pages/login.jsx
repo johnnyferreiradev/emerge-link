@@ -113,7 +113,7 @@ function Login() {
             <div className="form-group mb-2">
               <Button theme="primary" fluid onClick={handleLogin}>
                 {!loading ? 'Login' : (
-                  <Loading type="bubbles" height={32} width={32} fluid />
+                  <Loading type="bubbles" height={32} width={32} />
                 )}
               </Button>
             </div>

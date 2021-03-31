@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Head from 'next/head';
 import {
   FaFileSignature,
@@ -12,6 +12,8 @@ import {
 import { BsFillStarFill } from 'react-icons/bs';
 
 import { RefsContext } from 'contexters/RefsContext';
+
+import { getPublicPlans } from 'api/plans';
 
 import { Button } from 'components/Buttons';
 import Banner from 'components/Banner';
@@ -28,10 +30,19 @@ import Container from '../styles/pages/Home';
 function Home() {
   const refs = useContext(RefsContext);
 
+  const [plans, setPlans] = useState([]);
+
   const goToWhatsapp = () => {
     const message = 'Olá, gostaria de assinar um plano de internet!';
     window.location.href = `https://api.whatsapp.com/send?phone=5588996218411&text=${message}`;
   };
+
+  useEffect(() => {
+    getPublicPlans()
+      .then((response) => {
+        setPlans(response.data.plans);
+      });
+  }, []);
 
   return (
     <PublicLayout>
@@ -40,7 +51,7 @@ function Home() {
           <title>Emerge Link</title>
         </Head>
 
-        <Banner backgroundImage={bannerImage} />
+        <Banner backgroundImage={bannerImage} showPlansButton={plans.length > 0} />
 
         <Section background="white" className="about-us">
           <Row>
@@ -88,71 +99,51 @@ function Home() {
           </Row>
         </Section>
 
-        <Section className="plans">
-          <Row ref={refs.plans}>
-            <h1>Nosso planos</h1>
-          </Row>
-          <Row>
-            <PlanCard
-              plan={{
-                name: 'Básico',
-                size: '50',
-                price: '60,00',
-              }}
-            />
+        {plans.length > 0 && (
+          <Section className="plans">
+            <Row ref={refs.plans}>
+              <h1>Nosso planos</h1>
+            </Row>
+            <Row className="mt-3 mb-3">
+              {plans.map((plan) => (
+                <PlanCard
+                  plan={{
+                    name: plan.name,
+                    size: plan.size,
+                    price: plan.price,
+                  }}
+                />
+              ))}
+            </Row>
+            <Row>
+              <h2 className="txt-primary mb-3">É importante saber</h2>
+            </Row>
+            <Row>
+              <div className="card-info">
+                <h3 className="title">Instalação</h3>
+                <p className="txt-secondary">
+                  Para todos os combos a instalação é gratuita. Ela ocorre em até 7
+                  dias úteis a partir do agendamento, de segunda a sábado, das 08h às 20h.
+                </p>
+              </div>
 
-            <PlanCard
-              plan={{
-                name: 'Básico',
-                size: '50',
-                price: '60,00',
-              }}
-            />
+              <div className="card-info">
+                <h3 className="title">12 meses de fidelização</h3>
+                <p className="txt-secondary">
+                  Nossos planos possuem 12 meses de duração. Após esse período
+                  deve ser feita a renovação do contrato.
+                </p>
+              </div>
 
-            <PlanCard
-              plan={{
-                name: 'Básico',
-                size: '50',
-                price: '60,00',
-              }}
-            />
-
-            <PlanCard
-              plan={{
-                name: 'Básico',
-                size: '50',
-                price: '60,00',
-              }}
-            />
-          </Row>
-          <Row>
-            <h2 className="txt-primary mb-3">É importante saber</h2>
-          </Row>
-          <Row>
-            <div className="card-info">
-              <h3 className="title">Instalação</h3>
-              <p className="txt-secondary">
-                Para todos os combos a instalação é gratuita. Ela ocorre em até 7
-                dias úteis a partir do agendamento, de segunda a sábado, das 08h às 20h.
-              </p>
-            </div>
-
-            <div className="card-info">
-              <h3 className="title">12 meses de fidelização</h3>
-              <p className="txt-secondary">
-                Nossos planos possuem 12 meses de duração. Após esse período
-                deve ser feita a renovação do contrato.
-              </p>
-            </div>
-
-            <div className="card-info">
-              <h3 className="title">Soluções sob medida</h3>
-              <p className="txt-secondary">
-                Nossos consultores são especialistas em entender o que a sua empresa precisa.
-              </p>
-            </div>
-          </Row>
-        </Section>
+              <div className="card-info">
+                <h3 className="title">Soluções sob medida</h3>
+                <p className="txt-secondary">
+                  Nossos consultores são especialistas em entender o que a sua empresa precisa.
+                </p>
+              </div>
+            </Row>
+          </Section>
+        )}
 
         <Section background="primary" className="contact-us">
           <Row ref={refs.contact}>

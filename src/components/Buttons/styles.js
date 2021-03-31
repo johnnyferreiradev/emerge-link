@@ -14,6 +14,8 @@ const StyledButton = styled.button`
   font-weight: bold;
   text-transform: uppercase;
   transition: all .5s;
+  position: relative;
+  min-height: 42px;
   :hover {
     color: ${({ buttonTheme, theme }) => (theme === 'link' ? theme.buttons[buttonTheme].hoverColor : theme.buttons[buttonTheme].color)};
     background: ${({ buttonTheme, theme }) => (theme !== 'link' ? theme.buttons[buttonTheme].hoverColor : 'none')};
@@ -22,6 +24,12 @@ const StyledButton = styled.button`
   :active {
     box-shadow: none;
     transition: all .2s;
+  }
+
+  .loading {
+    position: absolute;
+    top: 5px;
+    left: calc(50% - 16px);
   }
 `;
 

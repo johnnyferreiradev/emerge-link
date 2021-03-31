@@ -7,7 +7,7 @@ import { Button } from 'components/Buttons';
 
 import StyledBanner from './styles';
 
-function Banner({ backgroundImage }) {
+function Banner({ backgroundImage, showPlansButton }) {
   const refs = useContext(RefsContext);
 
   const scrollToRef = (currentRef) => {
@@ -24,9 +24,11 @@ function Banner({ backgroundImage }) {
           <h1 className="title">Emerge Link</h1>
           <h2 className="subtitle">Conectando você ao mundo</h2>
           <h3 className="description txt-dark">Não perca tempo, conheça nossos planos e conecte-se com o mundo</h3>
-          <Button buttonTheme="secondary" onClick={() => scrollToRef(refs.plans)}>
-            Ver planos
-          </Button>
+          {showPlansButton && (
+            <Button buttonTheme="secondary" onClick={() => scrollToRef(refs.plans)}>
+              Ver planos
+            </Button>
+          )}
         </div>
       </Container>
     </StyledBanner>

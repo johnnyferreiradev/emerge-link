@@ -54,6 +54,16 @@ function Plans() {
       return;
     }
 
+    if (parseInt(size, 10) <= 0) {
+      dispatch(showSnackbar('O tamanho do plano não pode ser zero', 'danger'));
+      return;
+    }
+
+    if (parseInt(price, 10) < 0) {
+      dispatch(showSnackbar('O tamanho do plano não pode um valor negativo', 'danger'));
+      return;
+    }
+
     setLoading(true);
 
     registerPlan(name, size, price)
@@ -118,7 +128,7 @@ function Plans() {
             <div className="form-group mb-2">
               <Button theme="primary" fluid onClick={handleCreatePlan}>
                 {!loading ? 'Salvar' : (
-                  <Loading type="bubbles" height={32} width={32} fluid />
+                  <Loading type="bubbles" height={32} width={32} />
                 )}
               </Button>
             </div>

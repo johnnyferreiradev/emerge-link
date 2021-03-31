@@ -2,6 +2,8 @@ import api from './api';
 
 export const getPlans = () => api.get('/plans');
 
+export const getPublicPlans = () => api.get('/public-plans');
+
 export const getPlan = (id) => api.get(`/plans/${id}`);
 
 export const registerPlan = (name, size, price) => api.post('/plans', {
