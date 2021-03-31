@@ -12,19 +12,24 @@ function PlanCard({ plan }) {
       <Card>
         <Row>
           <Column desktop="12" tablet="12" mobile="12">
-            <p>{plan.name}</p>
+            <p className="plan-name">{plan.name}</p>
           </Column>
         </Row>
 
         <Row>
           <Column desktop="12" tablet="12" mobile="12">
             <h1>{plan.size}</h1>
+            <p className="plan-size">Mega</p>
           </Column>
         </Row>
 
         <Row>
           <Column desktop="12" tablet="12" mobile="12">
-            <h3>{plan.price}</h3>
+            <h3>
+              <span>R$</span>
+              {plan.price}
+              <span>/mês</span>
+            </h3>
           </Column>
         </Row>
       </Card>

@@ -28,7 +28,7 @@ const theme = {
       background: colors.white,
       color: colors.primary,
       border: 'none',
-      hoverColor: `${colors.secondary}20`,
+      hoverColor: `${colors.secondary}`,
       boxShadow: `0 2px 4px 0 ${colors.primary}55`,
     },
     link: {

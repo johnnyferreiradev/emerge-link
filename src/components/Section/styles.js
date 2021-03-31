@@ -10,7 +10,7 @@ const styledSection = styled.div.attrs(() => ({
   .grid-row {
     .grid-column {
       max-width: 1322px;
-      padding: 32px;
+      padding: 32px 0px;
     }
   }
 `;

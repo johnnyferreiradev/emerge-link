@@ -35,6 +35,12 @@ const Header = styled.header`
       line-height: normal;
     }
   }
+
+  @media (max-width: 784px) {
+    button:first-child {
+      padding: 16px 0px;
+    }
+	}
 `;
 
 export default Header;

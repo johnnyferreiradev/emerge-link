@@ -5,9 +5,9 @@ import { Container, Row, Column } from 'components/Grid';
 
 import StyledFooter from './styles';
 
-function Footer() {
+function Footer({ bottom }) {
   return (
-    <StyledFooter>
+    <StyledFooter bottom={bottom}>
       <Container>
         <Row>
           <Container>
@@ -19,6 +19,7 @@ function Footer() {
                 <p className="txt-primary">
                   ©
                   {new Date().getFullYear()}
+                  <span> </span>
                   Emerge Link - Todos os direitos reservados
                 </p>
               </Column>

@@ -1,22 +1,15 @@
-import React, { useEffect } from 'react';
-import Head from 'next/head';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 import hideGlobalModal from 'store/actions/modal/hideGlobalModal';
 
-import { getToken } from 'services/auth';
-
 import Header from 'components/Header';
-import Footer from 'components/Footer';
 import Snackbar from 'components/Snackbar';
 import Modal from 'components/Modal';
 
-import StyledMainLayout from './styles';
-
-function MainLayout({ children, isPrivate }) {
+function MainLayout({ children }) {
   const dispatch = useDispatch();
-  const router = useRouter();
 
   const snackbar = useSelector((state) => state.snackbar);
   const modal = useSelector((state) => state.modal);
@@ -25,21 +18,14 @@ function MainLayout({ children, isPrivate }) {
     dispatch(hideGlobalModal());
   };
 
-  useEffect(() => {
-    if (!getToken()) {
-      router.push('/login');
-    }
-  }, []);
-
   return (
-    <StyledMainLayout className="main-layout">
+    <div>
       <Head>
         <title>Emerge Link</title>
       </Head>
 
-      <Header isPrivate={isPrivate} />
+      <Header />
       {children}
-      <Footer />
 
       {snackbar.showSnackbar && (
         <Snackbar
@@ -54,7 +40,7 @@ function MainLayout({ children, isPrivate }) {
           {modal.modalContent}
         </Modal>
       )}
-    </StyledMainLayout>
+    </div>
   );
 }
 
