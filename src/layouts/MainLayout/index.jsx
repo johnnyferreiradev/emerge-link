@@ -8,7 +8,6 @@ import hideGlobalModal from 'store/actions/modal/hideGlobalModal';
 import { getToken } from 'services/auth';
 
 import Header from 'components/Header';
-import Footer from 'components/Footer';
 import Snackbar from 'components/Snackbar';
 import Modal from 'components/Modal';
 
@@ -39,7 +38,6 @@ function MainLayout({ children, isPrivate }) {
 
       <Header isPrivate={isPrivate} />
       {children}
-      <Footer />
 
       {snackbar.showSnackbar && (
         <Snackbar
