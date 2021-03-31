@@ -1,56 +1,75 @@
 import styled from 'styled-components';
 
-import { primaryColor, maxScreenWidth } from 'variables';
-
 const styledBanner = styled.div.attrs(() => ({
   className: 'banner',
 }))`
-  box-sizing: border-box;
   width: 100%;
-  max-width: ${maxScreenWidth} !important;
-  height: 400px;
+  height: 600px;
   background-image: url(${({ backgroundImage }) => backgroundImage});
   background-size: cover;
-  color: ${primaryColor};
+  background-position: center center;
+  color: #fff;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
+  & > .grid-container {
+    margin-top: 128px;
+    flex-direction: row;
+    justify-content: center;
+  }
+
   .banner-text {
-    padding: 96px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
 
-    .title, .subtitle {
-      margin-bottom: 24px;
+    .title, .subtitle, .description {
+      margin-bottom: 16px;
     }
 
     .title {
       font-size: 56px;
-      font-weight: 300;
+      font-weight: bold;
       font-stretch: normal;
       font-style: normal;
       line-height: normal;
       letter-spacing: normal;
+      color: ${({ theme }) => theme.colors.white};
+      text-shadow: 2px 2px 8px ${({ theme }) => theme.colors.dark};
     }
 
     .subtitle {
-      font-size: 16px;
-      font-weight: normal;
+      font-size: 32px;
+      font-weight: bold;
       font-stretch: normal;
       font-style: normal;
       line-height: 1.25;
       letter-spacing: 1px;
+      text-shadow: 2px 2px 8px ${({ theme }) => theme.colors.dark};
     }
-  }
 
-  .banner-image {
-    img {
-      width: 100%;
+    .description {
+      font-size: 24px;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.25;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 8px ${({ theme }) => theme.colors.dark};
+      color: #fff;
+    }
+
+    button {
+      width: 200px;
+      margin-top: 16px;
+
+      &:hover {
+        background: ${({ theme }) => theme.colors.secondary};
+      }
     }
   }
 

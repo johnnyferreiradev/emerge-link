@@ -30,12 +30,17 @@ const Header = styled.header`
     }
 
     button {
-      padding: 0px;
-      font-size: 20px;
-      width: 100%;
+      width: max-content;
       margin: 0px 8px;
+      line-height: normal;
     }
   }
+
+  @media (max-width: 784px) {
+    button:first-child {
+      padding: 16px 0px;
+    }
+	}
 `;
 
 export default Header;

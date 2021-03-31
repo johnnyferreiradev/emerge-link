@@ -9,6 +9,8 @@ import Footer from 'components/Footer';
 import Snackbar from 'components/Snackbar';
 import Modal from 'components/Modal';
 
+import StyledPublicLayout from './styles';
+
 function MainLayout({ children }) {
   const dispatch = useDispatch();
 
@@ -20,7 +22,7 @@ function MainLayout({ children }) {
   };
 
   return (
-    <div className="main-layout">
+    <StyledPublicLayout>
       <Head>
         <title>Emerge Link</title>
       </Head>
@@ -42,7 +44,7 @@ function MainLayout({ children }) {
           {modal.modalContent}
         </Modal>
       )}
-    </div>
+    </StyledPublicLayout>
   );
 }
 

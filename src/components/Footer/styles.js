@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const styledFooter = styled.footer.attrs(() => ({
   className: 'footer',
 }))`
-  position: absolute;
+  position: ${({ bottom }) => (bottom ? 'absolute' : 'relative')};
   bottom: 0px;
   width: 100%;
   padding: 16px;
@@ -11,106 +11,19 @@ const styledFooter = styled.footer.attrs(() => ({
   display: flex;
   justify-content: center;
   border-top: 2px solid ${({ theme }) => theme.colors.secondary};
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.textSecondary};
 
-  .left-side > * {
-    margin-bottom: 16px;
-  }
-
-  .right-side > * {
-    margin-bottom: 16px;
-  }
-
-  .left-side, .right-side {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .left-side {
-    align-items: flex-start;
-
-    h2 {
-      font-size: 20px;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: 0.83px;
-      margin-bottom: 32px;
-    }
-
-    li {
-      font-size: 12px;
-      font-weight: 500;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: 2;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .phones {
-      display: flex;
-      font-size: 16px;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: 1.5;
-      letter-spacing: 1.33px;
+  @media (max-width: 784px) {
+    .grid-column {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
 
       & > * {
-        margin-right: 8px;
+        margin-bottom: 16px;
       }
     }
-  }
-
-  .right-side {
-    align-items: flex-end;
-
-    h3 {
-      font-size: 14px;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: 0.58px;
-      text-transform: uppercase;
-    }
-
-    .social-networks {
-      width: 200px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    p {
-      font-size: 12px;
-      font-weight: 500;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: 2;
-      letter-spacing: 1px;
-      text-align: right;
-      text-transform: uppercase;
-    }
-  }
-
-  /* @media (max-width: 768px) {
-    position: relative;
-    padding: 32px;
-    margin-top: 64px;
-
-    .left-side {
-      margin-bottom: 56px;
-    }
-
-    p {
-      text-align: end;
-    }
-  } */
-
-  @media (max-height: 784px) {
-    position: relative;
-    padding: 32px;
-    margin-top: 64px;
 	}
 `;
 
