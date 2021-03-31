@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Head from 'next/head';
 
 import hideGlobalModal from 'store/actions/modal/hideGlobalModal';
 
@@ -7,6 +8,8 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 import Snackbar from 'components/Snackbar';
 import Modal from 'components/Modal';
+
+import StyledPublicLayout from './styles';
 
 function MainLayout({ children }) {
   const dispatch = useDispatch();
@@ -19,7 +22,11 @@ function MainLayout({ children }) {
   };
 
   return (
-    <div className="main-layout">
+    <StyledPublicLayout>
+      <Head>
+        <title>Emerge Link</title>
+      </Head>
+
       <Header />
       {children}
       <Footer />
@@ -37,7 +44,7 @@ function MainLayout({ children }) {
           {modal.modalContent}
         </Modal>
       )}
-    </div>
+    </StyledPublicLayout>
   );
 }
 

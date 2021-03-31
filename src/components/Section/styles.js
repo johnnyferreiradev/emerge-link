@@ -1,14 +1,18 @@
 import styled from 'styled-components';
 
-import { baseColor, maxScreenWidth } from 'variables';
-
 const styledSection = styled.div.attrs(() => ({
   className: 'section',
 }))`
   position: relative;
   width: 100%;
-  max-width: ${maxScreenWidth};
-  background: ${({ background }) => background || baseColor}
+  background: ${({ theme, background }) => (theme.colors[background])};
+
+  .grid-row {
+    .grid-column {
+      max-width: 1322px;
+      padding: 32px 0px;
+    }
+  }
 `;
 
 export default styledSection;

@@ -1,18 +1,19 @@
 /* eslint-disable import/no-unresolved */
-import React from 'react';
+import React, { useContext } from 'react';
 import { useRouter } from 'next/router';
-// import { FaPlus } from 'react-icons/fa';
+
+import { RefsContext } from 'contexters/RefsContext';
 
 import { logoff } from '../../services/auth';
 
 import { Container, Row, Column } from '../Grid';
 import { Button } from '../Buttons';
-// import ProfileIcon from '../ProfileIcon';
 
 import StyledHeader from './styles';
 
 function Header({ isPrivate }) {
   const router = useRouter();
+  const refs = useContext(RefsContext);
 
   const logout = () => {
     logoff();
@@ -27,6 +28,13 @@ function Header({ isPrivate }) {
     router.push('/plan-form');
   };
 
+  const scrollToRef = (currentRef) => {
+    if (!currentRef) return;
+
+    const offsetTop = currentRef.current.getBoundingClientRect().y;
+    window.scrollTo(0, offsetTop > 100 ? offsetTop - 32 : 0);
+  };
+
   return (
     <StyledHeader className="header">
       <Container className="main-content">
@@ -38,26 +46,30 @@ function Header({ isPrivate }) {
           </Column>
           <Column desktop="9" tablet="9" mobile="6">
             <Row alignItems="center" justifyContent="flex-end">
-              <Column desktop="2" tablet="2" mobile="12" className="flex j-c-end">
+              <Column desktop="12" tablet="12" mobile="12" className="flex j-c-end">
                 {isPrivate && (
                   <>
                     <Button buttonTheme="link" onClick={() => logout()}>
-                      <p className="txt-primary">Sair</p>
+                      Sair
                     </Button>
 
                     <Button buttonTheme="primary" onClick={() => goToNewPlan()}>
-                      <p className="txt-white p-1">Novo</p>
+                      Novo
                     </Button>
                   </>
                 )}
 
-                {/* <Button buttonTheme="link" onClick={() => {}}>
-                  <FaPlus />
-                </Button>
+                {!isPrivate && (
+                  <>
+                    <Button buttonTheme="link" className="home-button" onClick={() => scrollToRef(refs.contact)}>
+                      Contato
+                    </Button>
 
-                <Button buttonTheme="link" onClick={() => {}}>
-                  <ProfileIcon />
-                </Button> */}
+                    <Button buttonTheme="primary" className="home-button" onClick={() => {}}>
+                      Gerar fatura
+                    </Button>
+                  </>
+                )}
               </Column>
             </Row>
           </Column>

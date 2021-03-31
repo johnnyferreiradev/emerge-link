@@ -10,7 +10,7 @@ import showSnackbar from 'store/actions/snackbar/showSnackbar';
 
 import { validadeEmail } from 'utils/validate';
 
-import PublicLayout from 'layouts/PublicLayout';
+import PublicAdminLayout from 'layouts/PublicAdminLayout';
 
 import Card from 'components/Card';
 import { Button } from 'components/Buttons';
@@ -76,7 +76,7 @@ function Login() {
   };
 
   return (
-    <PublicLayout>
+    <PublicAdminLayout>
       <StyledLogin>
         <h1>Login</h1>
         <p>Faça login para gerenciar a plataforma</p>
@@ -120,7 +120,7 @@ function Login() {
           </div>
         </Card>
       </StyledLogin>
-    </PublicLayout>
+    </PublicAdminLayout>
   );
 }
 

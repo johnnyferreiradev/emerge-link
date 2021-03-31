@@ -31,6 +31,7 @@ export default createGlobalStyle`
   --warning-color: #ffe44b;
   --success-color: #4deb91;
   --info-color: #249AEE;
+  --text-secondary: #939393,
 }
 
 :focus {
@@ -241,7 +242,7 @@ textarea {
 }
 
 .txt-secondary {
-  color: var(--quaternary-color);
+  color: #939393;
 }
 
 .txt-tertiary {
