@@ -134,11 +134,11 @@ function Plans() {
                 <label htmlFor="plan-size">
                   <p>Tamanho (Mb)</p>
                   <input
-                    type="text"
                     name="size"
                     value={planState.size}
                     placeholder="Digite a quantidade de Mb do plano"
                     id="plan-size"
+                    type="number"
                     onChange={handlePlanField}
                   />
                 </label>
@@ -148,11 +148,11 @@ function Plans() {
                 <label htmlFor="plan-price">
                   <p>Preço</p>
                   <input
-                    type="text"
                     name="price"
                     value={planState.price}
                     placeholder="Digite o preço do plano"
                     id="plan-price"
+                    type="number"
                     onChange={handlePlanField}
                   />
                 </label>
