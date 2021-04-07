@@ -65,6 +65,14 @@ function Header({ isPrivate, hideLinks }) {
                       Contato
                     </Button>
 
+                    <Button buttonTheme="link" className="home-button" onClick={() => scrollToRef(refs.aboutUs)}>
+                      Sobre nós
+                    </Button>
+
+                    <Button buttonTheme="link" className="home-button" onClick={() => scrollToRef(refs.plans)}>
+                      Planos
+                    </Button>
+
                     <Button buttonTheme="primary" className="home-button" onClick={() => {}}>
                       Gerar fatura
                     </Button>

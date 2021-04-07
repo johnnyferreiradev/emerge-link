@@ -6,6 +6,7 @@ export const Context = ({ children }) => {
   const [state] = useState({
     plans: useRef(null),
     contact: useRef(null),
+    aboutUs: useRef(null),
   });
 
   return (

@@ -54,7 +54,7 @@ function Home() {
         <Banner backgroundImage={bannerImage} showPlansButton={plans.length > 0} />
 
         <Section background="white" className="about-us">
-          <Row>
+          <Row ref={refs.aboutUs}>
             <Column desktop="12" tablet="12" mobile="12" className="flex f-column a-i-center">
               <h1>Quem somos</h1>
               <p className="subtitle txt-secondary">Somos uma empresa que impulsiona as conexões necessárias em todos os momentos dos nossos clientes</p>
