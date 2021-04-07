@@ -4,15 +4,15 @@ import connectToDatabase from './connect';
 
 export default async (request, response) => {
   const { method } = request;
-  // const auth = verifyJWT(request);
+  const auth = verifyJWT(request);
   const collectionName = 'invoice';
 
-  // if (!auth) {
-  //   return response.status(401).json({
-  //     code: 'Unauthorized',
-  //     message: 'O usuário não tem permissão para realizar esta ação',
-  //   });
-  // }
+  if (!auth) {
+    return response.status(401).json({
+      code: 'Unauthorized',
+      message: 'O usuário não tem permissão para realizar esta ação',
+    });
+  }
 
   const db = await connectToDatabase(process.env.MONGODB_URI);
 
