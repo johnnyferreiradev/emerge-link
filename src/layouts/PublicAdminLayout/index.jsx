@@ -24,7 +24,7 @@ function MainLayout({ children }) {
         <title>Emerge Link</title>
       </Head>
 
-      <Header hideLinks />
+      <Header hideLinks logoRedirect="/" />
       {children}
 
       {snackbar.showSnackbar && (

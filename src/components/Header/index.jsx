@@ -11,7 +11,7 @@ import { Button } from '../Buttons';
 
 import StyledHeader from './styles';
 
-function Header({ isPrivate, hideLinks }) {
+function Header({ isPrivate, hideLinks, logoRedirect }) {
   const router = useRouter();
   const refs = useContext(RefsContext);
 
@@ -21,7 +21,7 @@ function Header({ isPrivate, hideLinks }) {
   };
 
   const goToPlans = () => {
-    router.push('/plans');
+    router.push(!logoRedirect ? '/plans' : logoRedirect);
   };
 
   const goToNewPlan = () => {

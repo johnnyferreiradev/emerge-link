@@ -11,7 +11,7 @@ import showSnackbar from 'store/actions/snackbar/showSnackbar';
 import PublicAdminLayout from 'layouts/PublicAdminLayout';
 
 import Card from 'components/Card';
-import { Button, AnchorButton } from 'components/Buttons';
+import { Button } from 'components/Buttons';
 import Loading from 'components/Loading';
 
 import StyledLogin from 'styles/pages/Login';

@@ -27,7 +27,7 @@ function MainLayout({ children }) {
         <title>Emerge Link</title>
       </Head>
 
-      <Header />
+      <Header logoRedirect="/" />
       {children}
       <Footer />
 
