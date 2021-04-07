@@ -1,26 +1,24 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 
-import { authenticate } from 'services/auth';
-
-import { login } from 'api/auth';
+import { getInvoice } from 'api/invoices';
 
 import showSnackbar from 'store/actions/snackbar/showSnackbar';
 
-import { validadeEmail } from 'utils/validate';
+// import { validadeEmail } from 'utils/validate';
 
 import PublicAdminLayout from 'layouts/PublicAdminLayout';
 
 import Card from 'components/Card';
-import { Button } from 'components/Buttons';
+import { Button, AnchorButton } from 'components/Buttons';
 import Loading from 'components/Loading';
 
 import StyledLogin from 'styles/pages/Login';
 
 function Login() {
   const dispatch = useDispatch();
-  const router = useRouter();
+  // const router = useRouter();
 
   // const userIsAuth = !!getToken();
 
@@ -31,48 +29,50 @@ function Login() {
   const [cpfState, setCpfState] = useState({
     cpf: '',
   });
+  const [invoice, setInvoice] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleCpfField = ({ target }) => {
     switch (target.name) {
-      case 'email':
-        setCpfState((prevState) => ({ ...prevState, email: target.value }));
-        break;
-      case 'password':
-        setCpfState((prevState) => ({ ...prevState, password: target.value }));
+      case 'cpf':
+        setCpfState((prevState) => ({ ...prevState, cpf: target.value }));
         break;
       default:
         throw new Error('invalid option');
     }
   };
 
-  // const handleLogin = () => {
-  //   const { email, password } = cpfState;
+  const downloadInvoice = () => {
+    const { cpf } = cpfState;
 
-  //   if (!email || !password) {
-  //     dispatch(showSnackbar('Você precisa preencher todos os campos', 'danger'));
-  //     return;
-  //   }
+    if (!cpf) {
+      dispatch(showSnackbar('Você precisa preencher todos os campos', 'danger'));
+      return;
+    }
 
-  //   if (!validadeEmail(email)) {
-  //     dispatch(showSnackbar('Email inválido', 'danger'));
-  //     return;
-  //   }
+    setLoading(true);
 
-  //   setLoading(true);
+    getInvoice(cpf)
+      .then(({ data }) => {
+        dispatch(showSnackbar('Fatura gerada com sucesso!', 'success'));
+        setInvoice(data.invoice);
+      })
+      .catch(({ response }) => {
+        if (response.data.code === 'findCpfError') {
+          dispatch(showSnackbar('Este CPF não está cadastrado ou é inválido', 'danger'));
+          return;
+        }
 
-  //   login(email, password)
-  //     .then(({ data }) => {
-  //       authenticate(data);
-  //       router.push('/plans');
-  //     })
-  //     .catch(() => {
-  //       dispatch(showSnackbar('Email ou senha incorretos', 'danger'));
-  //     })
-  //     .finally(() => {
-  //       setLoading(false);
-  //     });
-  // };
+        dispatch(showSnackbar('Erro ao fazer o download da fatura. Tente novamente mais tarde', 'danger'));
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const showInvoice = () => {
+    window.open(invoice.url, '_blank');
+  };
 
   return (
     <PublicAdminLayout>
@@ -81,26 +81,41 @@ function Login() {
         <p>Informe seu CPF para buscar a fatura deste mês</p>
         <Card width="344px" className="mb-3">
           <div className="form">
-            <div className="form-group mb-2">
-              <label htmlFor="cpf-field">
-                <p>CPF</p>
-                <input
-                  type="number"
-                  name="cpf"
-                  value={cpfState.cpf}
-                  placeholder="Digite seu CPF"
-                  id="cpf-field"
-                  onChange={handleCpfField}
-                />
-              </label>
-            </div>
+            {!invoice && (
+              <div className="form-group mb-2">
+                <label htmlFor="cpf-field">
+                  <p>CPF</p>
+                  <input
+                    type="number"
+                    name="cpf"
+                    value={cpfState.cpf}
+                    placeholder="Digite seu CPF (Somente números)"
+                    id="cpf-field"
+                    onChange={handleCpfField}
+                  />
+                </label>
+              </div>
+            )}
+
+            {invoice && (
+              <div className="form-group mb-3">
+                <p className="txt-secondary text-center">Código</p>
+                <h3 className="text-center">{invoice.code}</h3>
+              </div>
+            )}
 
             <div className="form-group mb-2">
-              <Button theme="primary" fluid onClick={() => {}}>
-                {!loading ? 'Gerar' : (
-                  <Loading type="bubbles" height={32} width={32} />
-                )}
-              </Button>
+              {!invoice ? (
+                <Button theme="primary" fluid onClick={() => downloadInvoice()}>
+                  {!loading ? 'Gerar' : (
+                    <Loading type="bubbles" height={32} width={32} />
+                  )}
+                </Button>
+              ) : (
+                <Button theme="success" fluid onClick={() => showInvoice()}>
+                  Ver fatura
+                </Button>
+              )}
             </div>
           </div>
         </Card>

@@ -73,7 +73,7 @@ function Header({ isPrivate, hideLinks }) {
                       Planos
                     </Button>
 
-                    <Button buttonTheme="primary" className="home-button" onClick={() => {}}>
+                    <Button buttonTheme="primary" className="home-button" onClick={() => router.push('/invoice')}>
                       Gerar fatura
                     </Button>
                   </>

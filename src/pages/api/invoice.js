@@ -1,7 +1,6 @@
 import verifyJWT from '../../middlewares/authorize';
 
 import connectToDatabase from './connect';
-import plans from './plans';
 
 export default async (request, response) => {
   const { method } = request;
@@ -34,9 +33,16 @@ export default async (request, response) => {
 
         const { name } = plan[0];
 
-        const result = await db.collection(collectionName).insertOne({ holder, holder_cpf, price, due_date, bar_code, name });
+        const result = await db.collection(collectionName).insertOne({
+          holder,
+          holder_cpf,
+          price,
+          due_date,
+          bar_code,
+          name,
+        });
 
-        const { _id, createdAt } = result;
+        const { _id } = result;
 
         response.status(200).json({
           id: _id,
