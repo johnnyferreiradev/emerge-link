@@ -1,18 +1,8 @@
-import verifyJWT from '../../middlewares/authorize';
-
 import connectToDatabase from './connect';
 
 export default async (request, response) => {
   const { method } = request;
-  const auth = verifyJWT(request);
   const collectionName = 'invoice';
-
-  if (!auth) {
-    return response.status(401).json({
-      code: 'Unauthorized',
-      message: 'O usuário não tem permissão para realizar esta ação',
-    });
-  }
 
   const db = await connectToDatabase(process.env.MONGODB_URI);
 
@@ -72,7 +62,7 @@ export default async (request, response) => {
       try {
         const { cpf } = request.query;
 
-        db.collection(collectionName).find( { holder_cpf: cpf } )
+        db.collection(collectionName).find({ holder_cpf: cpf })
           .toArray()
           .then((items) => response.status(200).json({ invoices: items }))
           .catch(() => response.status(200).json({ invoices: [] }));
