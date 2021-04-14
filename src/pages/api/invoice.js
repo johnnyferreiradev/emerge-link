@@ -1,18 +1,8 @@
-import verifyJWT from '../../middlewares/authorize';
-
 import connectToDatabase from './connect';
 
 export default async (request, response) => {
   const { method } = request;
-  const auth = verifyJWT(request);
   const collectionName = 'invoice';
-
-  if (!auth) {
-    return response.status(401).json({
-      code: 'Unauthorized',
-      message: 'O usuário não tem permissão para realizar esta ação',
-    });
-  }
 
   const db = await connectToDatabase(process.env.MONGODB_URI);
 
@@ -25,6 +15,8 @@ export default async (request, response) => {
           price,
           due_date,
         } = request.body;
+
+        const paid = false;
 
         const bar_code = parseInt(Math.random() * 100000000000);
 
@@ -40,6 +32,7 @@ export default async (request, response) => {
           due_date,
           bar_code,
           name,
+          paid
         });
 
         const { _id } = result;
@@ -52,6 +45,7 @@ export default async (request, response) => {
           due_date,
           bar_code,
           name,
+          paid
         });
       } catch (err) {
         response.status(500).json({
@@ -60,6 +54,22 @@ export default async (request, response) => {
             message: err,
           },
         });
+      }
+      break;
+    }
+
+    case 'GET': {
+      try {
+        const { cpf } = request.query;
+
+        db.collection(collectionName).find({ holder_cpf: cpf })
+          .toArray()
+          .then((items) => response.status(200).json({ invoices: items }))
+          .catch(() => response.status(200).json({ invoices: [] }));
+      } catch (e) {
+        return response
+          .status(404)
+          .json({ code: 'findInvoiceError', message: 'Não existem faturas' });
       }
       break;
     }

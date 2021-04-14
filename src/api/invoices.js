@@ -1,7 +1,7 @@
 import api from './api';
 
-export const getInvoice = (cpf) => api.post('/get-invoice', {
-  holder_cpf: cpf,
+export const getInvoice = (bar_code) => api.post('/get-invoice', {
+  bar_code,
 });
 
-export const getPublicPlans = () => api.get('/public-plans');
+export const getInvoices = (cpf) => api.get(`/invoice?cpf=${cpf}`);

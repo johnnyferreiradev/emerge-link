@@ -10,6 +10,12 @@ const Container = styled.div`
   & > p {
     margin-bottom: 32px;
   }
+
+  .invoice-list {
+    width: 100%;
+    max-width: 800px;
+    margin: 32px 0px;
+  }
 `;
 
 export default Container;
