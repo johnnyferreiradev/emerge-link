@@ -19,13 +19,6 @@ import StyledLogin from 'styles/pages/Login';
 
 function Login() {
   const dispatch = useDispatch();
-  // const router = useRouter();
-
-  // const userIsAuth = !!getToken();
-
-  // if (userIsAuth) {
-  //   router.push('/plans');
-  // }
 
   const [cpfState, setCpfState] = useState({
     cpf: '',
@@ -73,7 +66,7 @@ function Login() {
         setLoading(false);
       });
   };
-
+  
   return (
     <PublicAdminLayout>
       <StyledLogin>
