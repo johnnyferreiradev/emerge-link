@@ -11,17 +11,17 @@ export default async (request, response) => {
 
   switch (method) {
     case 'POST': {
-      const { holder_cpf } = request.body;
+      const { bar_code } = request.body;
 
       try {
         db.collection(collectionName)
-          .find({ holder_cpf })
+          .find({ bar_code })
           .toArray()
           .then((invoices) => {
             if (invoices.length === 0) {
               return response
                 .status(404)
-                .json({ code: 'findCpfError', message: 'Este CPF não está cadastrado' });
+                .json({ code: 'findCpfError', message: 'Esta fatura não existe' });
             }
 
             const { name, price, bar_code, due_date } = invoices[0];

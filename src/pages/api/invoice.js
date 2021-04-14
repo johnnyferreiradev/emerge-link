@@ -26,6 +26,8 @@ export default async (request, response) => {
           due_date,
         } = request.body;
 
+        const paid = false;
+
         const bar_code = parseInt(Math.random() * 100000000000);
 
         const plan = await db.collection("plans").find()
@@ -40,6 +42,7 @@ export default async (request, response) => {
           due_date,
           bar_code,
           name,
+          paid
         });
 
         const { _id } = result;
@@ -52,6 +55,7 @@ export default async (request, response) => {
           due_date,
           bar_code,
           name,
+          paid
         });
       } catch (err) {
         response.status(500).json({
@@ -60,6 +64,22 @@ export default async (request, response) => {
             message: err,
           },
         });
+      }
+      break;
+    }
+
+    case 'GET': {
+      try {
+        const { cpf } = request.query;
+
+        db.collection(collectionName).find( { holder_cpf: cpf } )
+          .toArray()
+          .then((items) => response.status(200).json({ invoices: items }))
+          .catch(() => response.status(200).json({ invoices: [] }));
+      } catch (e) {
+        return response
+          .status(404)
+          .json({ code: 'findInvoiceError', message: 'Não existem faturas' });
       }
       break;
     }
