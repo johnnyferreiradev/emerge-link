@@ -1,6 +1,7 @@
 import fs from 'fs';
 import invoiceFactory from 'services/invoiceFactory';
 import html_to_pdf from 'html-pdf-node';
+import { BASE_URL } from 'settings';
 import connectToDatabase from './connect';
 
 export default async (request, response) => {
@@ -41,7 +42,7 @@ export default async (request, response) => {
                 response.status(200).json({
                   invoice: {
                     code: bar_code,
-                    url: `${process.env.BASE_URL}uploads/invoice.pdf`,
+                    url: `${BASE_URL.replace('api', '')}uploads/invoice.pdf`,
                   },
                 });
               });
