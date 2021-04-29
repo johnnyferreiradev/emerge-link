@@ -6,4 +6,4 @@ export const APP_LOGO = logo;
 
 export const AUTH_TOKEN_KEY = '@emerge-link/auth-token';
 
-export const BASE_URL = 'https://emerge-link-n2a0zsxqm-johnnyferreiradev.vercel.app/api';
+export const BASE_URL = `${process.env.BASE_URL}/api`;
