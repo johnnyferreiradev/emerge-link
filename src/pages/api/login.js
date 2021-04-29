@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
 
 import connectToDatabase from './connect';
 
@@ -18,9 +17,7 @@ export default async (request, response) => {
         const user = await collection.findOne({ email });
 
         if (user) {
-          const match = await bcrypt.compare(password, user.password);
-
-          if (match) {
+          if (password === user.password) {
             const { _id, name, subscribedAt } = user;
             const token = jwt.sign({ _id }, process.env.SECRET, {
               expiresIn: '30d',

@@ -1,10 +1,7 @@
-import bcrypt from 'bcrypt';
-
 import connectToDatabase from './connect';
 
 export default async (request, response) => {
   const { method } = request;
-  const saltRounds = 10;
 
   try {
     const db = await connectToDatabase(process.env.MONGODB_URI);
@@ -24,35 +21,29 @@ export default async (request, response) => {
           });
         }
 
-        bcrypt.hash(password, saltRounds, async (err, passwordHash) => {
-          if (err) {
-            return response.status(401).json({ code: 'crypt', message: 'Erro ao criptografar senha' });
-          }
+        const insertResponse = await collection.insertOne({
+          email,
+          name,
+          password,
+          subscribedAt: new Date(),
+        });
 
-          const insertResponse = await collection.insertOne({
+        if (insertResponse) {
+          const { _id, subscribedAt } = insertResponse;
+
+          return response.status(201).json({
+            id: _id,
             email,
             name,
-            password: passwordHash,
-            subscribedAt: new Date(),
+            subscribedAt,
           });
+        }
 
-          if (insertResponse) {
-            const { _id, subscribedAt } = insertResponse;
-
-            return response.status(201).json({
-              id: _id,
-              email,
-              name,
-              subscribedAt,
-            });
-          }
-
-          return response.status(400).json({
-            error: {
-              code: 'register',
-              message: 'Erro ao cadastrar usuário',
-            },
-          });
+        return response.status(400).json({
+          error: {
+            code: 'register',
+            message: 'Erro ao cadastrar usuário',
+          },
         });
         break;
       }
